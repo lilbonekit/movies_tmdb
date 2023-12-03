@@ -1,0 +1,15 @@
+@use '../../scss/' as *;
+
+.movies {
+    @include flex(center, center);
+    h1 {
+        text-align: center;
+        font-size: 3rem;
+    }
+    flex-direction: column;
+    &-list {
+        margin: 45px 0;
+        @include grid(repeat(8, 1fr), center, center);
+        gap: 30px;
+    }
+}

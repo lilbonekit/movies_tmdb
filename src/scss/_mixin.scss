@@ -1,0 +1,18 @@
+@mixin flex($align-items, $justify-contetn) {
+    display: flex;
+    align-items: $align-items;
+    justify-content: $justify-contetn;
+}
+
+@mixin grid($grid-template-columns, $justify-contetn, $align-items) {
+    display: grid;
+    grid-template-columns: $grid-template-columns;
+    align-items: $align-items;
+    justify-content: $justify-contetn;
+}
+
+@mixin overlay {
+    background: linear-gradient(180deg, #0E0C13 0%, rgba(14, 12, 19, 0.72) 100%);
+    box-shadow: 0px 4px 42px 0px rgba(0, 0, 0, 0.70);
+    backdrop-filter: blur(11px);
+}
