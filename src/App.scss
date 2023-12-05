@@ -78,9 +78,3 @@ iframe {
 .section__header {
     @include flex(center, space-between)
 }
-
-@media (hover: none) {
-    .pagination {
-        background-color: none;
-    }
-}

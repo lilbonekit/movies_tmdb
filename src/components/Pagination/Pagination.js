@@ -1,13 +1,14 @@
 import './Pagination.scss';
-import Spinner from '../Spinner/Spinner';
 
 import { isMobile } from 'react-device-detect';
 
 import useTmdbServices from '../../services/tmdbServices';
+import useMoviesContext from '../../context/useMoviesContext';
 import { useEffect, useState } from 'react';
 
-const Pagination = ({setCurrentPage, currentPage}) => {
-    const [totalPages, setTotalPages] = useState(null)
+const Pagination = () => {
+    const {currentPage, setCurrentPage, totalPages} = useMoviesContext()
+
     const [localLoading, setLocalLoading] = useState(false)
     const [timeoutId, setTimeoutId] = useState(null)
 
@@ -20,7 +21,7 @@ const Pagination = ({setCurrentPage, currentPage}) => {
                 // Запоминаем идентификатор таймаута
                 const id = setTimeout(() => {
                     setLocalLoading(false);
-                }, 2000);
+                }, 1500);
                 
                 // Сохраняем идентификатор таймаута в состоянии
                 setTimeoutId(id);
@@ -34,13 +35,10 @@ const Pagination = ({setCurrentPage, currentPage}) => {
         error,
         // request,
         // clearError,
-        getMovies
+        // getMovies
     } = useTmdbServices()
 
     useEffect(() => {
-        getMovies()
-            .then(res => setTotalPages(res.response.total_pages))
-
         // Отписываемся от таймаута при размонтировании компонента
         return () => {
             if (timeoutId) {
@@ -73,7 +71,7 @@ const View = ({totalPages, currentPage, onHandleClick}) => {
         // (естественно не все 41290 страниц недоступны)
         // Поэтому я повесил на последнюю кнопку disabled
         // А если пользователь столкнётся с проблемой, его редайректнет на первую страницу
-        const countMiddlePagination = (currentPageNumber,_ , onHandleClick) => {
+        const countMiddlePagination = (currentPageNumber, totalPagesNumber , onHandleClick) => {
             if (currentPageNumber <= 3) {
                 return(
                     <>
@@ -89,6 +87,39 @@ const View = ({totalPages, currentPage, onHandleClick}) => {
                         ...
                     </>
                 ) 
+            } else if(currentPageNumber >= totalPagesNumber ||
+                      currentPageNumber + 1 === totalPagesNumber ||
+                      currentPageNumber + 2 === totalPagesNumber) {
+                return (
+                    <>
+                        <button data-page="1" onClick={onHandleClick}>
+                            1
+                        </button>
+                        ...
+                        {
+                            !isMobile ?
+                            <button data-page={`${currentPageNumber - 2}`} onClick={onHandleClick}>
+                               {`${currentPageNumber - 2}`}
+                           </button> :
+                           null
+                        }
+                        <button data-page={`${currentPageNumber - 1}`} onClick={onHandleClick}>
+                            {`${currentPageNumber - 1}`}
+                        </button>
+                        <button data-page={`${currentPageNumber}`} onClick={onHandleClick}
+                         className='active'>
+                            {`${currentPageNumber}`}
+                        </button>
+                        {
+                            currentPageNumber + 1 >= totalPagesNumber ?
+                                null:
+                            <button data-page={`${currentPageNumber + 1}`} onClick={onHandleClick}
+                                className=''>
+                                {`${currentPageNumber + 1}`}
+                            </button>  
+                        }
+                    </>
+                )
             } else {
                 return(
                     <>
@@ -132,12 +163,16 @@ const View = ({totalPages, currentPage, onHandleClick}) => {
                 {
                    countMiddlePagination(currentPageNumber, totalPagesNumber, onHandleClick)
                 }
-                <button
-                    disabled={true} 
-                    data-page={+totalPagesNumber} 
-                    onClick={onHandleClick}>
-                    {totalPagesNumber}
-                </button>
+                {
+                    currentPageNumber === totalPagesNumber ?
+                    null :
+                    <button
+                        disabled={totalPagesNumber > 300} 
+                        data-page={+totalPagesNumber} 
+                        onClick={onHandleClick}>
+                        {totalPagesNumber}
+                    </button>
+                }
             </div>
         )
     }

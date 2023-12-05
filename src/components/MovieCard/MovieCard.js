@@ -8,7 +8,6 @@ const MovieCard = (props) => {
     return(
         <li className='movie-card'>
             <img src={imgPath} alt={title} />
-            {/* <h3>{title}</h3> */}
             <div className="overlay">
                 <h3>{title}</h3>
             </div>

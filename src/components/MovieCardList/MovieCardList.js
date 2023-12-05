@@ -7,22 +7,27 @@ import { useEffect, useState } from 'react'
 import useTmdbServices from '../../services/tmdbServices'
 import Spinner from '../Spinner/Spinner'
 
-const MovieCardList = ({currentPage, setCurrentPage}) => {
+import useMoviesContext from '../../context/useMoviesContext'
+
+const MovieCardList = () => {
+    const {currentPage, setCurrentPage, setTotalPages} = useMoviesContext()
     const [movies, setMovies] = useState([])
 
     const {         
         isLoading,
         error,
-        clearError,
+        // clearError,
         getMovies 
     } = useTmdbServices()
 
     const onMovieListLoading = () => {
         getMovies({
+            query: '',
             page: currentPage
         })
             .then(res => {
                 setMovies(res.results)
+                setTotalPages(res.response.total_pages)
             })
             .catch(() => setCurrentPage(1))
     }

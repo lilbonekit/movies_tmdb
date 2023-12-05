@@ -1,4 +1,6 @@
 import useHttp from "../hooks/useHttp";
+import useMoviesContext from "../context/useMoviesContext";
+
 import apiConfig from "../api/apiConfig";
 // apiConfig = {
 //     baseUrl: 'https://api.themoviedb.org/3/',
@@ -19,15 +21,23 @@ const useTmdbServices = () => {
 
     const getMovies = async (params = null) => {
             // https://developer.themoviedb.org/reference/discover-movie
-            // BASIC:
+            // DISCOVER:
             // page
             // include_video
             // include_adult
             // language
-        let stringified;
+            // SEARCH:
+            // query
+        let stringified
             params ? stringified = queryString.stringify(params) + '&' : stringified = ''
 
-        const response = await request(`${apiConfig.baseUrl}discover/movie?${stringified}api_key=${apiConfig.apiKey}`)
+            // URL для поиска и для показа отличается одним словом search / discover
+            // Если я хочу в одном месте и показывать резульаты поиска и просто результаты
+            // то полный URL нужно расчитывать динамически
+        const { query } = params || {}
+        const afterBaseUrl = query ? 'search' : 'discover'
+
+        const response = await request(`${apiConfig.baseUrl}${afterBaseUrl}/movie?${stringified}api_key=${apiConfig.apiKey}`)
         return {response, results: response.results}
     }
 
