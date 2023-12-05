@@ -7,6 +7,8 @@
     overflow: hidden;
     position: relative;
     transition: .3s all ease;
+    // max-width: 250px;
+    // min-width: 150px;
 
     &:hover .overlay {
         transform: translateY(0%);
@@ -31,5 +33,25 @@
         z-index: -1;
         position: relative;
         border-radius: $border-radius;
+    }
+}
+
+@include tablet {
+    .movies {
+        .movie-card {
+            overflow: unset;
+            position: unset;
+            img {
+                position: unset;
+            }
+            .overlay {
+                h3 {
+                    position: unset;
+                }
+                transform: translate(0);
+                background: transparent;
+                position: unset;
+            }
+        }
     }
 }

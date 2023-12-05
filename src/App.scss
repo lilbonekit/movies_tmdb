@@ -14,7 +14,7 @@ html {
     }
 
     @include mobile {
-        font-size: 60%;
+        font-size: 80%;
     }
 }
 
@@ -77,4 +77,10 @@ iframe {
 
 .section__header {
     @include flex(center, space-between)
+}
+
+@media (hover: none) {
+    .pagination {
+        background-color: none;
+    }
 }

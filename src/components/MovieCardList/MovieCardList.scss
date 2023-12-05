@@ -1,6 +1,7 @@
 @use '../../scss/' as *;
 
 .movies {
+    padding: 0 60px;
     @include flex(center, center);
     h1 {
         text-align: center;
@@ -9,7 +10,22 @@
     flex-direction: column;
     &-list {
         margin: 45px 0;
-        @include grid(repeat(8, 1fr), center, center);
+        // @include grid(repeat(8, 1fr), center, center);
+        // @include flex(center, center);
+        // flex-direction: row;
+        // flex-wrap: wrap;
+        display: grid;
+        justify-content: center;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 0.8fr));
         gap: 30px;
+    }
+}
+
+@include mobile {
+    .movies {
+        padding: 0 15px;
+    }
+    .movies-list {
+        font-size: 140%;
     }
 }

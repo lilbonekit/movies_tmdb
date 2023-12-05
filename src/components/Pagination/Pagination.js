@@ -1,4 +1,7 @@
 import './Pagination.scss';
+import Spinner from '../Spinner/Spinner';
+
+import { isMobile } from 'react-device-detect';
 
 import useTmdbServices from '../../services/tmdbServices';
 import { useEffect, useState } from 'react';
@@ -28,7 +31,7 @@ const Pagination = ({setCurrentPage, currentPage}) => {
 
     const {
         // isLoading,
-        // error,
+        error,
         // request,
         // clearError,
         getMovies
@@ -47,11 +50,15 @@ const Pagination = ({setCurrentPage, currentPage}) => {
         // eslint-disable-next-line
     }, [timeoutId])
 
-    const result = localLoading ? 
-        null :
+    const result = localLoading ? (
+        null
+    ) : error ? (
+        null
+    ) : (
         <View totalPages={totalPages}
               currentPage={currentPage}
               onHandleClick={onHandleClick}/>
+    )
 
     return result
 }
@@ -63,7 +70,7 @@ const View = ({totalPages, currentPage, onHandleClick}) => {
 
         // totalPagesNumber если нужна будет аналогичная логика рендера для последней страницы
         // В API я даже не знаю с какой страницы нельзя будет делать запрос 
-        // (естественно все 41290 страниц недоступны)
+        // (естественно не все 41290 страниц недоступны)
         // Поэтому я повесил на последнюю кнопку disabled
         // А если пользователь столкнётся с проблемой, его редайректнет на первую страницу
         const countMiddlePagination = (currentPageNumber,_ , onHandleClick) => {
@@ -89,9 +96,13 @@ const View = ({totalPages, currentPage, onHandleClick}) => {
                             1
                         </button>
                         ...
-                        <button data-page={`${currentPageNumber - 2}`} onClick={onHandleClick}>
-                            {`${currentPageNumber - 2}`}
-                        </button>
+                        {
+                            !isMobile ?
+                            <button data-page={`${currentPageNumber - 2}`} onClick={onHandleClick}>
+                                {`${currentPageNumber - 2}`}
+                            </button> :
+                            null
+                        }
                         <button data-page={`${currentPageNumber - 1}`} onClick={onHandleClick}>
                             {`${currentPageNumber - 1}`}
                         </button>
@@ -103,9 +114,13 @@ const View = ({totalPages, currentPage, onHandleClick}) => {
                         <button data-page={`${currentPageNumber + 1}`} onClick={onHandleClick}>
                             {`${currentPageNumber + 1}`}
                         </button>
-                        <button data-page={`${currentPageNumber + 2}`} onClick={onHandleClick}>
-                            {`${currentPageNumber + 2}`}
-                        </button>
+                        {
+                            !isMobile ?
+                            <button data-page={`${currentPageNumber + 2}`} onClick={onHandleClick}>
+                                {`${currentPageNumber + 2}`}
+                            </button> :
+                            null
+                        }
                         ...
                     </>
                 )

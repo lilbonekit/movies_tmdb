@@ -13,23 +13,41 @@
         &:disabled {
             opacity: 0.5;
         }
-        &:hover {
-            background: white;
-            color: $body-bg;
-        }
     }
     .active {
-        &:hover {
-            border-radius: 3px;
-            background-color: $red-color;
-            box-shadow: $red-box-shadow;
-            border: 1px solid $red-color;
-            font-weight: 700;
-            color: $txt-color;
-        }
         background-color: $red-color;
         box-shadow: $red-box-shadow;
         border: 1px solid $red-color;
         font-weight: 700;
+    }
+}
+
+@include mobile {
+    .pagination {
+        button {
+            padding: 1.2rem;
+        }
+        gap: 8px;
+    }
+}
+
+@media (hover: hover) {
+    .pagination {
+        button {
+            &:hover {
+                background: white;
+                color: $body-bg;
+            }
+        }
+        .active {
+            &:hover {
+                border-radius: 3px;
+                background-color: $red-color;
+                box-shadow: $red-box-shadow;
+                border: 1px solid $red-color;
+                font-weight: 700;
+                color: $txt-color;
+            }
+        }
     }
 }

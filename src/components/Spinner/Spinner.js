@@ -6,10 +6,11 @@ const Spinner = () => {
             xmlns="http://www.w3.org/2000/svg"
             xmlnsXlink="http://www.w3.org/1999/xlink"
             style={{
-                'display': 'block',
+                display: 'block',
                 position: 'absolute',
                 top: '50%',
-                transform: 'translateY(-50%)'
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
             }}
             width="200px"
             height="200px"

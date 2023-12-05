@@ -1,5 +1,6 @@
 import './MovieCardList.scss'
 import MovieCard from '../MovieCard/MovieCard'
+import ErrorMessage from '../ErrorMessage/ErrorMessage'
 
 import { useEffect, useState } from 'react'
 
@@ -36,12 +37,15 @@ const MovieCardList = ({currentPage, setCurrentPage}) => {
            <div className="container">
                 <h1>Movies</h1>
                 {
-                    isLoading ?
-                    <Spinner style={{margin: 'auto 0'}}/> :
                     <ul className='movies-list'>
-                         <View movies={movies}/>
+                        {isLoading ? (
+                                <Spinner style={{ margin: 'auto 0' }} />
+                            ) : error ? (
+                                <ErrorMessage msg={'Something went wrong. Please try again later.'}/>
+                            ) : (
+                                <View movies={movies} />
+                            )}
                     </ul>
-
                 }
            </div>
         </section>
