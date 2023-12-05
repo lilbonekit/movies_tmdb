@@ -1,5 +1,4 @@
 import useHttp from "../hooks/useHttp";
-import useMoviesContext from "../context/useMoviesContext";
 
 import apiConfig from "../api/apiConfig";
 // apiConfig = {

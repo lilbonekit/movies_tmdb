@@ -10,7 +10,7 @@ import Spinner from '../Spinner/Spinner'
 import useMoviesContext from '../../context/useMoviesContext'
 
 const MovieCardList = () => {
-    const {currentPage, setCurrentPage, setTotalPages} = useMoviesContext()
+    const {currentPage, setCurrentPage, setTotalPages, searchQuery} = useMoviesContext()
     const [movies, setMovies] = useState([])
 
     const {         
@@ -22,7 +22,7 @@ const MovieCardList = () => {
 
     const onMovieListLoading = () => {
         getMovies({
-            query: '',
+            query: searchQuery,
             page: currentPage
         })
             .then(res => {
@@ -35,7 +35,7 @@ const MovieCardList = () => {
     useEffect(() => {
         onMovieListLoading()
         // eslint-disable-next-line
-    }, [currentPage])
+    }, [currentPage, searchQuery])
 
     return(
         <section className='movies'>

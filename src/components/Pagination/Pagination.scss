@@ -2,6 +2,9 @@
 
 .pagination {
     @include flex(center, center);
+    .MuiPaginationItem-ellipsis {
+        color: $txt-color;
+    }
     gap: 8px;
     button {
         transition: .3s all ease;
@@ -14,7 +17,7 @@
             opacity: 0.5;
         }
     }
-    .active {
+    .active, .Mui-selected {
         background-color: $red-color;
         box-shadow: $red-box-shadow;
         border: 1px solid $red-color;
@@ -39,7 +42,7 @@
                 color: $body-bg;
             }
         }
-        .active {
+        .active, .Mui-selected {
             &:hover {
                 border-radius: 3px;
                 background-color: $red-color;
