@@ -10,7 +10,13 @@ import Spinner from '../Spinner/Spinner'
 import useMoviesContext from '../../context/useMoviesContext'
 
 const MovieCardList = () => {
-    const {currentPage, setCurrentPage, setTotalPages, searchQuery} = useMoviesContext()
+    const {
+        currentPage,
+        setCurrentPage,
+        setTotalPages,
+        searchQuery,
+        setIsPerfomedSearch
+    } = useMoviesContext()
     const [movies, setMovies] = useState([])
 
     const {         
@@ -28,6 +34,7 @@ const MovieCardList = () => {
             .then(res => {
                 setMovies(res.results)
                 setTotalPages(res.response.total_pages)
+                setIsPerfomedSearch(res.response.total_results)
             })
             .catch(() => setCurrentPage(1))
     }
@@ -40,7 +47,6 @@ const MovieCardList = () => {
     return(
         <section className='movies'>
            <div className="container">
-                <h1>Movies</h1>
                 {
                     <ul className='movies-list'>
                         {isLoading ? (

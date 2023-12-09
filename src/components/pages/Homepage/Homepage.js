@@ -4,20 +4,14 @@ import MovieCardList from "../../MovieCardList/MovieCardList";
 import Pagination from "../../Pagination/Pagination";
 import SearchPanel from '../../SearchPanel/SearchPanel';
 
-import useMoviesContext from '../../../context/useMoviesContext';
-
 const Homepage = () => {
-    const {totalPages} = useMoviesContext()
 
     return(
         <div className='home-page'>
+            <h1>Movies</h1>
             <SearchPanel/>
             <MovieCardList/>
-            {
-                totalPages === 1 ?
-                null :
-                <Pagination/>
-            }
+            <Pagination/>
         </div>
     )
 }

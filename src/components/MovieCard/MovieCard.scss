@@ -7,9 +7,6 @@
     overflow: hidden;
     position: relative;
     transition: .3s all ease;
-    // max-width: 250px;
-    // min-width: 150px;
-
     &:hover .overlay {
         transform: translateY(0%);
     }

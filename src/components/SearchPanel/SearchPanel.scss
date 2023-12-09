@@ -1,0 +1,108 @@
+@use '../../scss/' as *;
+
+.search {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    .close {
+        z-index: 600;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        right: 5px;
+        height: 80%;
+        width: 40px;
+        padding: 10px;
+        background-color: $body-bg;
+    }
+    &-form {
+        .label {
+            width: 100%;
+            position: relative;
+        }
+        margin-top: 30px;
+        border-radius: $border-radius;
+        ::placeholder {
+            color: $txt-color;
+        }
+        @include flex(center, center);
+        min-width: 600px;
+        border: 1px solid $txt-color;
+        input {
+            line-height: 140%;
+            transition: .3s all ease;
+            background:$body-bg;
+            color: $txt-color;
+        }
+        [type='text'] {
+            width: 100%;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+            border: 1px solid $txt-color;
+        }
+        [type='submit'] {
+            background-color: transparent;
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+            color: white;
+            border: 1px solid $txt-color;
+            width: 30%;
+        }
+        .disabled {
+            opacity: 0.5;
+        }
+    }
+    .results {
+        @include flex(center, flex-start);
+        gap: 5px;
+        .add-info {
+            @include flex(center, center);
+            gap: 8px;
+        }
+        &-button {
+            font-size: 12px;
+            padding: 5px;
+            position: relative;
+            @include flex(center, flex-start);
+            flex-direction: row;
+            gap: 5px;
+            white-space: nowrap;
+            overflow: hidden;
+            max-width: 150px;
+            min-width: 50px;
+            p {
+                width: 80%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            };         
+            .close-result {
+                width: 25%;
+                position: absolute;
+                right: 4px;
+                @include flex(center, center);
+                right: 5;
+                path {
+                    fill: $body-bg;
+                }
+            }
+        }
+        padding-left: 15px;
+        font-size: 12px;
+    }
+}
+
+@media (hover: hover) {
+    [type='submit']:hover {
+        box-shadow: $red-box-shadow;
+        background: $red-color;
+    }
+}
+
+@include tablet {
+    .search {
+        &-form {
+            min-width: unset;
+        }
+        width: 80%;
+    }
+}

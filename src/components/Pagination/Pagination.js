@@ -64,14 +64,18 @@ const PaginationPanel = () => {
 const View = ({ totalPages, currentPage, setCurrentPage, onHandleClick }) => {
     return(
         <div className="pagination">
-            <Pagination
-                size={isMobile ? 'small' : 'large'} 
-                count={+totalPages}
-                page={+currentPage}
-                onChange={(_, num) => {
-                    setCurrentPage(num)
-                    onHandleClick(num)
-                    }}/>
+              {
+                totalPages === 1 ?
+                null :
+                <Pagination
+                    size={isMobile ? 'small' : 'large'} 
+                    count={+totalPages}
+                    page={+currentPage}
+                    onChange={(_, num) => {
+                        setCurrentPage(num)
+                        onHandleClick(num)
+                }}/>
+            }
         </div>
     )
 };
