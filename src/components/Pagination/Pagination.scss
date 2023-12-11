@@ -38,13 +38,11 @@
     .pagination {
         button {
             &:hover {
-                background: white;
-                color: $body-bg;
+                border-radius: 3px;
             }
         }
         .active, .Mui-selected {
             &:hover {
-                border-radius: 3px;
                 background-color: $red-color;
                 box-shadow: $red-box-shadow;
                 border: 1px solid $red-color;

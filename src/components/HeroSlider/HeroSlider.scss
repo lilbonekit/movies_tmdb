@@ -1,0 +1,104 @@
+@use '../../scss' as *;
+@import 'swiper/swiper.min.css';
+
+.hero-slider {
+    width: 100%;
+    display: flex;
+    position: relative;
+    .slide {
+        position: relative;
+        &-txt {
+            @include flex(flex-start, flex-start);
+            flex-direction: column;
+            gap: 15px;
+        }
+        &-desc {
+            position: absolute;
+            z-index: 500;
+            display: grid;
+            // width: 50%;
+            padding: 100px;
+            gap: 80px;
+            grid-template-columns: 1fr 2fr;
+            justify-content: space-between;
+        }
+        &-bg {
+            position: relative;
+            z-index: -1;
+        }
+        &-overlay {
+            position: absolute;
+            z-index: 1;
+            height: 100%;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(23, 23, 23, 0.3) 0%, #171717 100%)
+            , linear-gradient(180deg, #171717 0%, rgba(23, 23, 23, 0.3) 100%);
+        }
+        &-preview {
+            object-fit: cover;
+            // box-shadow: 0px 4px 77px 0px rgba(215, 215, 215, 0.15);
+            border-radius: $border-radius;
+        }
+        &-btns {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            button {
+                transition: .3s all ease;
+                padding: 15px;
+                cursor: pointer;
+                font-size: 1rem;
+                font-weight: 500;
+                color: $txt-color;
+            }
+            .main {
+                background: $red-color;
+                box-shadow: $red-box-shadow;
+            }
+            .outline {
+                background: transparent;
+                border: 1px solid $txt-color;
+            }
+        }
+    }
+}
+
+@include tablet {
+    .hero-slider {
+        padding-bottom: 30px;
+        .slide {
+            &-desc {
+                padding: 0 60px;
+                grid-template-columns: 1fr;
+                position: relative;
+                gap: 30px;
+            }
+            &-preview {
+                grid-row: 1 / 3;
+            }
+            &-bg {
+                position: absolute;
+                top: 0;
+                opacity: 0;
+            }
+            &-overlay {
+                top: 0;
+            }
+        }
+    }
+}
+
+@media (hover: hover) {
+    .hero-slider {
+        .slide {
+            &-btns {
+                button {
+                    &:hover {
+                        border-radius: 5px;
+                    }
+                }
+            }
+        }
+    }
+}

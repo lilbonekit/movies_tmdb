@@ -1,22 +1,43 @@
 @use '../../scss/' as *;
 
 .movies {
-    padding: 0 60px;
+    padding: 0 15px;
     @include flex(center, center);
     flex-direction: column;
+    position: relative;
     &-list {
+        max-width: 1500px;
         margin: 45px 0;
         display: grid;
-        @include grid(repeat(auto-fit, minmax(200px, 0.8fr)), center, center);
+        @include grid(repeat(auto-fit, minmax(150px, 200px)), center, center);
         gap: 30px;
+    }
+}
+
+@media (max-width: 1499px) {
+    .movies {
+        &-list {
+            max-width: 1200px;
+            padding: 0 15px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .movies {
+        &-list {
+            max-width: 720px;
+            padding: 0 15px;
+        }
     }
 }
 
 @include mobile {
     .movies {
-        padding: 0 15px;
-    }
-    .movies-list {
-        font-size: 140%;
+        padding: 0;
+        &-list {
+            font-size: 140%;
+            max-width: unset;
+        }
     }
 }
