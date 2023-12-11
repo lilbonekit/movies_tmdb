@@ -59,49 +59,56 @@ const HeroSlider = () => {
     )
 }
 
-const View = ({movieItems}) => {
-    return(
-        <Swiper
-                autoplay={{delay: 3000}}
-                spaceBetween={0}
-                slidesPerView={1}
-                onSlideChange={() => {}}
-                onSwiper={(swiper) => {}}
-            >
-
-            {
-                movieItems.map((item, i) => (
-                    <SwiperSlide key={item.id}>
-                        <div className="slide">
-                            <div className="slide-desc">
-                                <div className="slide-txt">
-                                    <h1>{item.title}</h1>
-                                    <p>{item.overview}</p>
-                                    <div className="slide-btns">
-                                        <button className='buttons main' 
-                                                onClick={() => console.log('test')}>
-                                            Watch now
-                                        </button>
-                                        <button className='buttons outline' 
-                                                onClick={() => console.log('test')}>
-                                            Watch trailer
-                                        </button>
-                                    </div>
-                                </div>
-                                <img className='slide-preview'
-                                     src={apiConfig.originalImage(item.backdrop_path)}
-                                     alt={`Slide ${i + 1}`}/>
-                            </div>
-                            <div className='slide-overlay'></div>
-                            <img className='slide-bg' 
-                                 src={apiConfig.originalImage(item.backdrop_path)}
-                                 alt={`Slide ${i + 1}`}/>
+const View = ({ movieItems }) => {
+    return (
+      <Swiper
+        autoplay={{ delay: 3000 }}
+        spaceBetween={0}
+        slidesPerView={1}
+        onSlideChange={() => {}}
+        onSwiper={(swiper) => {}}
+      >
+        {movieItems.map((item, i) => (
+          <SwiperSlide key={item.id}>
+             {({ isActive }) => (
+                <div className={`slide ${isActive ? 'slide-active' : ''}`}>
+                    <div className='slide-desc'>
+                    <div className='slide-txt'>
+                        <h1>{item.title}</h1>
+                        <p>{item.overview}</p>
+                        <div className='slide-btns'>
+                            <button
+                                className='buttons main'
+                                onClick={() => console.log('test')}
+                            >
+                                Watch now
+                            </button>
+                            <button
+                                className='buttons outline'
+                                onClick={() => console.log('test')}
+                            >
+                                Watch trailer
+                            </button>
                         </div>
-                    </SwiperSlide>
-                ))
-            }
-            </Swiper>
-    )
+                    </div>
+                    <img
+                        className='slide-preview'
+                        src={apiConfig.originalImage(item.backdrop_path)}
+                        alt={`Slide ${i + 1}`}
+                    />
+                </div>
+                <div className='slide-overlay'></div>
+                    <img
+                    className='slide-bg'
+                    src={apiConfig.originalImage(item.backdrop_path)}
+                    alt={`Slide ${i + 1}`}
+                />
+              </div>
+            )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    );
 }
 
 export default HeroSlider
