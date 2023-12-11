@@ -22,7 +22,8 @@ const MovieCardList = () => {
     const {         
         isLoading,
         error,
-        // clearError,
+        setError,
+        clearError,
         getMovies 
     } = useTmdbServices()
 
@@ -32,11 +33,15 @@ const MovieCardList = () => {
             page: currentPage
         })
             .then(res => {
+                clearError()
                 setMovies(res.results)
                 setTotalPages(res.response.total_pages)
                 setIsPerfomedSearch(res.response.total_results)
             })
-            .catch(() => setCurrentPage(1))
+            .catch(() => {
+                setError('There are no results on this page...')
+                // setCurrentPage(1)
+            })
     }
     
     useEffect(() => {
@@ -52,7 +57,7 @@ const MovieCardList = () => {
                         {isLoading ? (
                                 <Spinner style={{ margin: 'auto 0' }} />
                             ) : error ? (
-                                <ErrorMessage msg={'Something went wrong. Please try again later.'}/>
+                                <ErrorMessage msg={error}/>
                             ) : (
                                 <View movies={movies} />
                             )}

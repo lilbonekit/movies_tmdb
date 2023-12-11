@@ -15,7 +15,8 @@ const useTmdbServices = () => {
         isLoading,
         error,
         request,
-        clearError
+        clearError,
+        setError
     } = useHttp()
 
     const getMovies = async (params = null) => {
@@ -40,12 +41,19 @@ const useTmdbServices = () => {
         return {response, results: response.results}
     }
 
+    const getVideo = async (movieID) => {
+        const response = await request(`${apiConfig.baseUrl}movie/${movieID}/videos?api_key=${apiConfig.apiKey}`)
+        return {response, results: response.results}
+    }
+
     return {
         isLoading,
         error,
         request,
         clearError,
-        getMovies
+        getMovies,
+        getVideo,
+        setError
     }
 }
 

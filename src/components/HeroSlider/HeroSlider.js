@@ -5,6 +5,7 @@ import {Swiper, SwiperSlide} from 'swiper/react'
 
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
+import Modal, { ModalContent } from '../Modal/Modal'
 
 import apiConfig from '../../api/apiConfig'
 // const apiConfig = {
@@ -15,7 +16,7 @@ import apiConfig from '../../api/apiConfig'
 // }
 
 import useTmdbServices from '../../services/tmdbServices'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 
 const HeroSlider = () => {
 
@@ -27,7 +28,8 @@ const HeroSlider = () => {
         isLoading,
         error,
         // clearError,
-        getMovies 
+        getMovies,
+        // getVideo 
     } = useTmdbServices()
 
     useEffect(() => {
@@ -52,63 +54,130 @@ const HeroSlider = () => {
                     (
                         <ErrorMessage msg={'Something went wrong. Please try again later.'}/>
                     ) : (
-                            <View movieItems={movieItems} />
+                            <Slider movieItems={movieItems} />
                         )
             }
         </section>
     )
 }
 
-const View = ({ movieItems }) => {
+const Slider = ({ movieItems }) => {
+    const swiperRef = useRef(null)
+
     return (
-      <Swiper
-        autoplay={{ delay: 3000 }}
-        spaceBetween={0}
-        slidesPerView={1}
-        onSlideChange={() => {}}
-        onSwiper={(swiper) => {}}
-      >
-        {movieItems.map((item, i) => (
-          <SwiperSlide key={item.id}>
-             {({ isActive }) => (
-                <div className={`slide ${isActive ? 'slide-active' : ''}`}>
-                    <div className='slide-desc'>
-                    <div className='slide-txt'>
-                        <h1>{item.title}</h1>
-                        <p>{item.overview}</p>
-                        <div className='slide-btns'>
-                            <button
-                                className='buttons main'
-                                onClick={() => console.log('test')}
-                            >
-                                Watch now
-                            </button>
-                            <button
-                                className='buttons outline'
-                                onClick={() => console.log('test')}
-                            >
-                                Watch trailer
-                            </button>
-                        </div>
-                    </div>
-                    <img
-                        className='slide-preview'
-                        src={apiConfig.originalImage(item.backdrop_path)}
-                        alt={`Slide ${i + 1}`}
-                    />
-                </div>
-                <div className='slide-overlay'></div>
-                    <img
-                    className='slide-bg'
-                    src={apiConfig.originalImage(item.backdrop_path)}
-                    alt={`Slide ${i + 1}`}
-                />
-              </div>
-            )}
-          </SwiperSlide>
-        ))}
-      </Swiper>
+        <>
+            <Swiper
+                ref={swiperRef}
+                autoplay={{ delay: 3000 }}
+                spaceBetween={0}
+                slidesPerView={1}
+                onSlideChange={() => {}}
+                onSwiper={() => {}}>
+                
+                {
+                    movieItems.map((item, i) => (
+                        <SwiperSlide key={i}>
+                            {({isActive}) => (
+                                <HeroSliderItem item={item} isActive={isActive} swiperRef={swiperRef}/>
+                            )}
+                        </SwiperSlide>))
+                }
+                
+            </Swiper>
+            {
+                movieItems.map((item, i) => <TrailerModal key={i} item={item}/>)
+            }
+        </>
     );
+}
+
+const HeroSliderItem = ({item, isActive, swiperRef}) => {
+    const {getVideo} = useTmdbServices()
+    
+    const setModalActive = async (id) => {
+        const modal = document.querySelector(`#modal_${item.id}`)
+
+         // Отключение autoplay в Swiper при открытии модалки
+        if (swiperRef.current && swiperRef.current.swiper) {
+            swiperRef.current.swiper.autoplay.stop();
+        }
+
+        getVideo(id)
+            .then(res => {
+                if(res.results.length > 0) {
+                    const videoSrc = 'https://www.youtube.com/embed/' + res.results[0].key
+                    modal.querySelector('.modal__content > iframe').setAttribute('src', videoSrc)
+                } else {
+                    modal.querySelector('.modal__content > iframe').innerHTML = 'No trailer'
+                }
+            })
+
+        document.body.style.overflow = 'hidden'
+        modal.classList.toggle('modal-active')
+    }
+
+    return(
+            <div className={`slide ${isActive ? 'slide-active' : ''}`}>
+                <div className='slide-desc'>
+                <div className='slide-txt'>
+                    <h1>{item.title}</h1>
+                    <p>{item.overview}</p>
+                    <div className='slide-btns'>
+                        <button
+                            className='buttons main'
+                            onClick={() => console.log('test watch')}>
+                            Watch now
+                        </button>
+                        <button
+                            className='buttons outline'
+                            onClick={() => setModalActive(item.id)}>
+                            Watch trailer
+                        </button>
+                    </div>
+                </div>
+                <img
+                    className='slide-preview'
+                    src={apiConfig.originalImage(item.backdrop_path)}
+                    alt={item.title}
+                />
+            </div>
+            <div className='slide-overlay'></div>
+            <img
+                className='slide-bg'
+                src={apiConfig.originalImage(item.backdrop_path)}
+                alt={item.title}
+            />
+        </div>
+    )
+}
+
+const TrailerModal = (props) => {
+    const item = props.item
+
+    const iframeRef = useRef(null)
+    const modalRef = useRef(null)
+
+    const closeModalOverlay = () => {
+        document.body.style.overflow = 'auto'
+        modalRef.current.querySelector('.modal__content > iframe').setAttribute('src', '')
+        modalRef.current.classList.remove('modal-active')
+    }
+
+    const onClose = () => {
+        iframeRef.current.setAttribute('src', '')
+    }
+
+    return(
+        <Modal active={false}
+               id={`modal_${item.id}`}
+               closeModalOverlay={closeModalOverlay}
+               ref={modalRef}>
+            <ModalContent onClose={onClose}>
+                <iframe ref={iframeRef} width='100%' height='400px' title='trailer'></iframe>
+            </ModalContent>
+        </Modal>
+    )
+
 }
 
 export default HeroSlider
