@@ -12,11 +12,10 @@
     opacity: 0;
     visibility: hidden;
     background: rgba($color: #000000, $alpha: .8);
-    scale: 0;
+    transition: .6s all ease;
     &.modal-active {
         opacity: 1;
         visibility: visible;
-        scale: 1;
     }
     &__content {
         border-radius: $border-radius;

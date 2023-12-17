@@ -10,6 +10,104 @@
     &:hover .overlay {
         transform: translateY(0%);
     }
+    &-modal-content {
+        .buttons__wrapper {
+            margin-top: 30px;
+        }
+        .left {
+            position: relative;
+            .buttons__wrapper {
+                left: 10px;
+                top: 10px;
+                border-radius: $border-radius;
+                display: none;
+                gap: 5px;
+                margin-top: 0;
+                .button {
+                    &.active {
+                        opacity: 1;
+                    }
+                    overflow: hidden;
+                    @include flex(center, center);
+                    gap: 10px;
+                    p {
+                        display: none;
+                    }
+                    &:hover {
+                        border-radius: $border-radius;
+                        p {
+                            display: block;
+                        }
+                    }
+                    background: $body-bg;
+                    opacity: .6;
+                    color: $txt-color;
+                    padding: 1rem;
+                    text-align: left;
+                }
+                position: absolute;
+                display: flex;
+                @include flex(flex-start, flex-start);
+                flex-direction: column;
+                z-index: 200;
+            }
+            .preview {
+                border-radius: 15px;
+                position: relative;
+            }
+
+        }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+        h2 {
+            font-size: 2rem;
+        }
+        .char {
+            &-desc {
+                min-width: 100px;
+                align-self: flex-start;
+            }
+            &-name {
+                font-size: 0.9rem;
+                opacity: .8;
+            }
+            display: flex;
+            justify-content: space-between;
+            &-wrapper {
+                margin-top: 30px;
+                gap: 10px;
+                display: flex;
+                flex-direction: column;
+                .button {
+                    width: fit-content;
+                    margin-top: 30px;
+                }
+                .overview {
+                    margin-top: 30px;
+                    p {
+                        margin-top: 15px;
+                        overflow-y: auto;
+                        max-height: fit-content;
+                        overflow-wrap: break-word; 
+
+                        &::-webkit-scrollbar {
+                            width: 5px;
+                        }
+                    
+                        &::-webkit-scrollbar-thumb {
+                            background-color: #484848;
+                            border-radius: 5px;
+                        }
+                    
+                        &::-webkit-scrollbar-track {
+                            border-radius: 5px;
+                        }
+                    }
+                }
+            }
+        }
+    }
     .overlay {
         transition: .3s all ease-in-out;
         background: linear-gradient(180deg, rgba(23, 23, 23, 0.00) 0%, #171717 94.71%);
@@ -20,6 +118,7 @@
         height: 100%;
         transform: translateY(100%);
         h3 {
+            width: 100%;
             position: absolute;
             bottom: 0;
             padding: 1rem;
@@ -28,10 +127,36 @@
     }
 
     img {
+        height: 100%;
+        object-fit: cover;
         z-index: -1;
         position: relative;
         border-radius: $border-radius;
     }
+}
+
+@media (max-width: 1400px) {
+    .movies-list {
+        .modal__content {
+            width: 60%;
+            // height: 100vh;
+            top: 0;
+        }
+    }
+    .movie-card {
+        &-modal-content {
+            .char {
+                &-wrapper {
+                    .overview {
+                        p {
+                            max-height: 80px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
 }
 
 @include tablet {
@@ -39,6 +164,11 @@
         .movie-card {
             overflow: unset;
             position: unset;
+            &-modal-content {
+                .char-desc {
+                    text-align: right;
+                }
+            }
             img {
                 position: unset;
             }
@@ -51,5 +181,17 @@
                 position: unset;
             }
         }
+    }
+}
+
+@include mobile {
+    .modal {
+        align-items: unset;
+        &__content {
+            height: fit-content;
+        }
+    }
+    .movie-card-modal-content {
+        grid-template-columns: 1fr;
     }
 }

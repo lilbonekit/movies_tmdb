@@ -71,6 +71,9 @@ const View = ({ totalPages, currentPage, setCurrentPage, onHandleClick }) => {
                     size={isMobile ? 'small' : 'large'} 
                     count={+totalPages}
                     page={+currentPage}
+                    defaultPage={isMobile ? 3 : 6}
+                    siblingCount={(+currentPage === +totalPages && isMobile) ? 0 : 1}
+                    boundaryCount={isMobile ? 0 : 1}
                     onChange={(_, num) => {
                         setCurrentPage(num)
                         onHandleClick(num)

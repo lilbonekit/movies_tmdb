@@ -9,13 +9,14 @@ import Spinner from '../Spinner/Spinner'
 
 import useMoviesContext from '../../context/useMoviesContext'
 
-const MovieCardList = () => {
+export const MovieCardList = () => {
     const {
         currentPage,
-        setCurrentPage,
+        // setCurrentPage,
         setTotalPages,
         searchQuery,
-        setIsPerfomedSearch
+        setIsPerfomedSearch,
+        currentFilter
     } = useMoviesContext()
     const [movies, setMovies] = useState([])
 
@@ -50,6 +51,15 @@ const MovieCardList = () => {
     }, [currentPage, searchQuery])
 
     return(
+        <List isLoading={isLoading}
+              error={error}
+              movies={movies}
+              currentFilter={currentFilter}/>
+    )
+}
+
+export const List = ({isLoading, error, movies, closeOnChoose}) => {
+    return(
         <section className='movies'>
            <div className="container">
                 {
@@ -59,7 +69,8 @@ const MovieCardList = () => {
                             ) : error ? (
                                 <ErrorMessage msg={error}/>
                             ) : (
-                                <View movies={movies} />
+                                <View movies={movies}
+                                      closeOnChoose={closeOnChoose}/>
                             )}
                     </ul>
                 }
@@ -68,8 +79,13 @@ const MovieCardList = () => {
     )
 }
 
-const View = ({movies}) => {
-    return movies.map(movie => <MovieCard key={movie.id} {...movie}/>)
+const View = ({movies, closeOnChoose}) => {
+    const { currentFilter } = useMoviesContext()
+    return movies && movies.length > 0 ? 
+        movies.map(movie => <MovieCard key={movie.id} {...movie} 
+        closeOnChoose={closeOnChoose}/>) : 
+        <ErrorMessage smile='🫥'
+                      msg={`You don't have any movies in your ${currentFilter} list...`}/>
 }
 
 export default MovieCardList

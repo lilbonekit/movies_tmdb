@@ -21,7 +21,7 @@ const useHttp = () => {
         })
 
         if (!response.ok) {
-            throw new Error('Что-то пошло не так!')
+            throw new Error('Error!')
         }
 
         const data = await response.json()
@@ -30,9 +30,8 @@ const useHttp = () => {
         return data
 
     } catch (err) {
-        setError(err.message || 'Что-то пошло не так!');
+        setError(err.message || 'Error!');
         setIsLoading(false);
-        // throw err
     }
     }, []);
 

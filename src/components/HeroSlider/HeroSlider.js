@@ -3,6 +3,8 @@ import './HeroSlider.scss'
 import SwiperCore, { Autoplay } from 'swiper'
 import {Swiper, SwiperSlide} from 'swiper/react'
 
+import { Link } from 'react-router-dom'
+
 import Spinner from '../Spinner/Spinner'
 import ErrorMessage from '../ErrorMessage/ErrorMessage'
 import Modal, { ModalContent } from '../Modal/Modal'
@@ -14,7 +16,6 @@ import apiConfig from '../../api/apiConfig'
 //     originalImage: (imgPath) => `https://image.tmdb.org/t/p/original${imgPath}`,
 //     w500Image: (imgPath) => `https://image.tmdb.org/t/p/w500${imgPath}`,
 // }
-
 import useTmdbServices from '../../services/tmdbServices'
 import { useEffect, useState, useRef } from 'react'
 
@@ -34,7 +35,7 @@ const HeroSlider = () => {
 
     useEffect(() => {
         getMovies({
-            page: 11
+            page: 14
         })
         .then(res => {
             const moviesArray = res.response.results
@@ -121,13 +122,18 @@ const HeroSliderItem = ({item, isActive, swiperRef}) => {
                 <div className='slide-desc'>
                 <div className='slide-txt'>
                     <h1>{item.title}</h1>
-                    <p>{item.overview}</p>
+                    <p>
+                        {
+                            item.overview.length > 300 ?
+                                item.overview.slice(0, 300) + '...' :
+                                item.overview
+                        }
+                    </p>
                     <div className='slide-btns'>
-                        <button
-                            className='buttons main'
-                            onClick={() => console.log('test watch')}>
+                        <Link to={`movie/${item.id}`}
+                              className='buttons button main'>
                             Watch now
-                        </button>
+                        </Link>
                         <button
                             className='buttons outline'
                             onClick={() => setModalActive(item.id)}>
@@ -157,7 +163,7 @@ const TrailerModal = (props) => {
     const iframeRef = useRef(null)
     const modalRef = useRef(null)
 
-    const closeModalOverlay = () => {
+    const closeModalOverlay = (e) => {
         document.body.style.overflow = 'auto'
         modalRef.current.querySelector('.modal__content > iframe').setAttribute('src', '')
         modalRef.current.classList.remove('modal-active')

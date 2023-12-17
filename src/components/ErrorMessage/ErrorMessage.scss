@@ -9,7 +9,7 @@
     flex-direction: column;
     justify-content: center;
     text-align: center;
-    min-width: 1200px;
+    min-width: 700px;
     h2 {
         font-weight:  400;
     }
@@ -19,6 +19,12 @@
         margin: 0 auto;
         font-size: 5rem;
         text-align: center;
+    }
+}
+
+@include tablet {
+    .error-message {
+        min-width: 350px;
     }
 }
 

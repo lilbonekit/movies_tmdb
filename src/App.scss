@@ -8,6 +8,13 @@
     box-sizing: border-box;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100vh;
+}
+
 html {
     font-size: 100%;
 
@@ -42,16 +49,29 @@ a {
     color: unset;
 }
 
-@media (hover: hover) {
-    a:hover {
-        color: $red-color;
-    }
-}
-
 button, input {
     border: none;
     border-radius: $border-radius;
 }
+
+button, a {
+    transition: .3s all ease;
+    padding: 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: $border-radius;
+    font-weight: 500;
+    color: $txt-color;
+    &.main {
+        background: $red-color;
+        box-shadow: $red-box-shadow;
+    }
+    &.outline {
+        background: transparent;
+        border: 1px solid $txt-color;
+    }
+}
+
 
 ul {
     list-style-type: none;
@@ -83,9 +103,17 @@ input {
 }
 
 section {
-    min-height: 300px;
+    min-height: 400px;
 }
 
 .section__header {
     @include flex(center, space-between)
+}
+
+@media (hover: hover) {
+    button, .button {
+        &:hover {
+            border-radius: 5px;
+        }
+    }
 }

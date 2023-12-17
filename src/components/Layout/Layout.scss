@@ -1,0 +1,91 @@
+@use '../../scss/' as *;
+
+header {
+    .logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        fill: $txt-color;
+        @include flex(center, center);
+        gap: 10px;
+        transition: .3s all ease;
+        svg {
+            width: 50px;
+            height: 50px;
+        }
+        &:hover {
+            svg {
+                scale: 0.8;
+            }
+        }
+    }
+    width: 100%;
+    @include flex(center, space-between);
+    position: fixed;
+    padding: 1rem;
+    z-index: 10000;
+    transition: .3s all ease;
+    border-bottom: 1px solid transparent;
+    &.hidden {
+        transform: translateY(-100%);
+    }
+    &.blured {
+        // background: linear-gradient(180deg, #0E0C13 0%, rgba(14, 12, 19, 0.72) 100%);
+        border-bottom: 1px solid white;
+        backdrop-filter: blur(11px);
+    }
+    nav {
+        display: flex;
+        a {
+            width: fit-content;
+            font-weight: 700;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            &:hover {
+                &::after {
+                    width: 35%;
+                }
+            }
+            &::after {
+                transition: .3s all ease;
+                margin: 0 auto;
+                content: '';
+                display: flex;
+                width: 0%;
+                height: 3px;
+                border-radius: $border-radius;
+                background-color: $red-color;
+                box-shadow: $red-box-shadow;
+            }
+            &.active {
+                &::after {
+                    width: 100%;
+                }
+                &:hover {
+                    &::after {
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+footer {
+    text-align: center;
+    font-size: 0.8rem;
+    opacity: 0.6;
+    padding: 2rem;
+}
+
+@include mobile {
+    header {
+        padding: .1rem;
+        .logo {
+            p {
+                display: none;
+            }
+        }
+    }
+}
+

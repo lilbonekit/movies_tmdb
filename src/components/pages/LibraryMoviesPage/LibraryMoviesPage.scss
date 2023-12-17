@@ -1,0 +1,22 @@
+@use '../../../scss/' as *;
+
+.library {
+    &-page {
+        @include flex(center, center);
+        flex-direction: column;
+        padding: 8rem 15px;
+    }
+    &-header {
+        @include flex(center, center);
+        flex-direction: column;
+        gap: 15px;
+        h1 {
+            text-align: center;
+        }
+    }
+    &-btns {
+        margin-top: 10px;
+        @include flex(center, center);
+        gap: 10px;
+    }
+}

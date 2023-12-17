@@ -41,10 +41,24 @@ const useTmdbServices = () => {
         return {response, results: response.results}
     }
 
+    // Получить несколько трейлеров
     const getVideo = async (movieID) => {
         const response = await request(`${apiConfig.baseUrl}movie/${movieID}/videos?api_key=${apiConfig.apiKey}`)
         return {response, results: response.results}
     }
+
+    // Инфа об актёрах снявшихся в фильме
+    // https://developer.themoviedb.org/reference/movie-credits
+
+    // Детали о фильме (пригодится, когда буду делать Watched, Queue)
+    // https://developer.themoviedb.org/reference/movie-details
+    const getMovie = async (movieID) => {
+        const response = await request(`${apiConfig.baseUrl}movie/${movieID}?api_key=${apiConfig.apiKey}`)
+        return response
+    }
+
+    // Похожие
+    // https://developer.themoviedb.org/reference/movie-similar
 
     return {
         isLoading,
@@ -52,6 +66,7 @@ const useTmdbServices = () => {
         request,
         clearError,
         getMovies,
+        getMovie,
         getVideo,
         setError
     }

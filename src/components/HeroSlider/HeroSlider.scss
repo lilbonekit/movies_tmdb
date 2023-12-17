@@ -21,19 +21,16 @@
             transform: translateY(-100px);
             transition: transform 1s ease, opacity 1s ease;
 
-
-            @include flex(flex-start, flex-start);
+            @include flex(flex-start, center);
             flex-direction: column;
             gap: 15px;
         }
         
         &-desc {
-
             position: absolute;
             z-index: 500;
             display: grid;
-            // width: 50%;
-            padding: 100px;
+            padding: 100px 80px;
             gap: 80px;
             grid-template-columns: 1fr 2fr;
             justify-content: space-between;
@@ -66,27 +63,17 @@
             flex-wrap: wrap;
             gap: 15px;
             margin-top: 15px;
-            button {
-                transition: .3s all ease;
-                padding: 15px;
-                cursor: pointer;
-                font-size: 1rem;
-                font-weight: 500;
-                color: $txt-color;
-            }
-            .main {
-                background: $red-color;
-                box-shadow: $red-box-shadow;
-            }
-            .outline {
-                background: transparent;
-                border: 1px solid $txt-color;
-            }
         }
     }
 }
 
 @include tablet {
+    .hero-slider {
+        margin-top: 60px;
+    }
+}
+
+@media (max-width: 1200px) {
     .hero-slider {
         padding-bottom: 30px;
         .slide {
@@ -106,20 +93,6 @@
             }
             &-overlay {
                 top: 0;
-            }
-        }
-    }
-}
-
-@media (hover: hover) {
-    .hero-slider {
-        .slide {
-            &-btns {
-                button {
-                    &:hover {
-                        border-radius: 5px;
-                    }
-                }
             }
         }
     }

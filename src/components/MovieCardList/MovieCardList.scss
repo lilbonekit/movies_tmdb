@@ -8,7 +8,6 @@
     &-list {
         max-width: 1500px;
         margin: 45px 0;
-        display: grid;
         @include grid(repeat(auto-fit, minmax(150px, 200px)), center, center);
         gap: 30px;
     }

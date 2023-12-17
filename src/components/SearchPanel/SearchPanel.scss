@@ -69,8 +69,11 @@
             white-space: nowrap;
             overflow: hidden;
             max-width: 150px;
-            min-width: 50px;
+            min-width: 60px;
             p {
+                padding: 0 5px;
+                color: $body-bg;
+                text-align: left;
                 width: 80%;
                 overflow: hidden;
                 text-overflow: ellipsis;
