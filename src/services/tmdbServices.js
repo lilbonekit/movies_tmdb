@@ -49,6 +49,10 @@ const useTmdbServices = () => {
 
     // Инфа об актёрах снявшихся в фильме
     // https://developer.themoviedb.org/reference/movie-credits
+    const getCredits = async (movieID) => {
+        const response = await request(`${apiConfig.baseUrl}movie/${movieID}/credits?api_key=${apiConfig.apiKey}`)
+        return {response, results: response.results}
+    }
 
     // Детали о фильме (пригодится, когда буду делать Watched, Queue)
     // https://developer.themoviedb.org/reference/movie-details
@@ -67,6 +71,7 @@ const useTmdbServices = () => {
         clearError,
         getMovies,
         getMovie,
+        getCredits,
         getVideo,
         setError
     }

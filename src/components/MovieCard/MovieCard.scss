@@ -16,6 +16,10 @@
         }
         .left {
             position: relative;
+            img {
+                height: 100%;
+                object-fit: cover;
+            }
             .buttons__wrapper {
                 left: 10px;
                 top: 10px;
@@ -127,8 +131,6 @@
     }
 
     img {
-        height: 100%;
-        object-fit: cover;
         z-index: -1;
         position: relative;
         border-radius: $border-radius;

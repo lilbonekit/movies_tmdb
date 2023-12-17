@@ -10,7 +10,8 @@ const Spinner = () => {
                 position: 'absolute',
                 top: '50%',
                 left: '50%',
-                transform: 'translate(-50%, -50%)'
+                transform: 'translate(-50%, -50%)',
+                zIndex: '999999999'
             }}
             width="200px"
             height="200px"

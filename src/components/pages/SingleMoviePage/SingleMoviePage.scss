@@ -1,0 +1,161 @@
+@use '../../../scss/' as *;
+
+.single-movie {
+    &-page {
+        @include flex(center, center);
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        padding: 8rem 15px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        position: relative;
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            height: 50vh;
+            width: 100%;
+            background: linear-gradient(180deg, rgba(23, 23, 23, 0.3) -100%, #171717 100%)
+            , linear-gradient(180deg, #171717 0%, rgba(23, 23, 23, 0.3) 100%);
+        }
+        .poster {
+            position: absolute;
+            top: 0;
+            height: 50vh;
+            width: 100%;
+            object-fit: cover;
+        }
+        .content {
+            position: relative;
+            z-index: 100;
+            .trailers {
+                .trailer {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+                    margin-bottom: 1rem;
+                }
+                padding: 60px 0 0 0;
+                width: 100%;
+                @include flex(center, center);
+                flex-direction: column;
+                gap: 30px;
+                iframe {
+                    width: 100%;
+                    height: 720px
+                }
+            }
+            .genres {
+                @include flex(center, flex-start);
+                gap: 10px;
+                .genre {
+                    border-radius: $border-radius;
+                    padding: 5px 10px;
+                    font-size: 0.8rem;
+                    font-weight: 700;
+                    border: 2px solid $txt-color;
+                }
+            }
+            .credits {
+                &__wrapper {
+                    margin-top: 10px;
+                    display: flex;
+                    justify-content: flex-start;
+                    flex-wrap: wrap;
+                    gap: 15px;
+                    .credit {
+                        max-width: 100px;
+                        min-width: 75px;
+                        img {
+                            border-radius: 8px;
+                        }
+                        p {
+                            text-align: center;
+                            font-size: 0.9rem;
+                            opacity: .8;
+                            overflow-wrap: break-word;
+                        }
+                    }
+                }
+            }
+            .hero-movie {
+                max-width: 1200px;
+                @include grid(1fr 2fr,center, center);
+                .left {
+                    position: relative;
+                    height: 100%;
+                    .buttons__wrapper {
+                        left: 10px;
+                        top: 10px;
+                        border-radius: $border-radius;
+                        display: none;
+                        gap: 5px;
+                        margin-top: 0;
+                        .button {
+                            &.active {
+                                opacity: 1;
+                            }
+                            overflow: hidden;
+                            @include flex(center, center);
+                            gap: 10px;
+                            p {
+                                display: none;
+                            }
+                            &:hover {
+                                border-radius: $border-radius;
+                                p {
+                                    display: block;
+                                }
+                            }
+                            background: $body-bg;
+                            opacity: .6;
+                            color: $txt-color;
+                            padding: 1rem;
+                            text-align: left;
+                        }
+                        position: absolute;
+                        display: flex;
+                        @include flex(flex-start, flex-start);
+                        flex-direction: column;
+                        z-index: 200;
+                    }
+                    .preview {
+                        border-radius: 15px;
+                        position: relative;
+                        height: 100%;
+                        object-fit: cover;
+                    }
+        
+                }
+                .descr {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                }
+                gap: 30px;
+            }
+        }
+    }
+}
+
+@include tablet{
+    .single-movie-page {
+        padding-bottom: 1rem;
+        .content {
+                .trailers {                    
+                    iframe {
+                        width: 100%;
+                        height: 300px
+                    }
+                }
+            .hero-movie {
+                grid-template-columns: 1fr;
+            }
+        }   
+    }
+
+}

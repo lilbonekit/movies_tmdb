@@ -1,7 +1,7 @@
 import './ErrorMessage.scss'
 
 // )))
-const ErrorMessage = ({msg, smile = '😒'}, styles = null) => {
+const ErrorMessage = ({msg, smile = '😒', styles = {}}) => {
     return(
         <div className='error-message' style={styles}>
             <span>{smile}</span>
