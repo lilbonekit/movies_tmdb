@@ -51,6 +51,7 @@ const Modal = forwardRef((props, ref) => {
             document.body.style.overflow = 'hidden'
             document.body.style.marginRight = `${scroll}px`
         }
+        //eslint-disable-next-line
     }, [props.active])
 
     return(
