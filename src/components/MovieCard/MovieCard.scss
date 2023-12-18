@@ -1,4 +1,4 @@
-@use '../../scss/' as *;
+@use "../../scss/" as *;
 
 .movie-card {
     border-radius: $border-radius;
@@ -6,7 +6,10 @@
     align-self: flex-start;
     overflow: hidden;
     position: relative;
-    transition: .3s all ease;
+    transition: 0.3s all ease;
+    height: 300px;
+    // border: 1px solid #2d2d2d;
+    background: linear-gradient(180deg, #2d2d2d 0%, #171717 94.71%);
     &:hover .overlay {
         transform: translateY(0%);
     }
@@ -44,7 +47,7 @@
                         }
                     }
                     background: $body-bg;
-                    opacity: .6;
+                    opacity: 0.6;
                     color: $txt-color;
                     padding: 1rem;
                     text-align: left;
@@ -59,7 +62,6 @@
                 border-radius: 15px;
                 position: relative;
             }
-
         }
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -74,7 +76,7 @@
             }
             &-name {
                 font-size: 0.9rem;
-                opacity: .8;
+                opacity: 0.8;
             }
             display: flex;
             justify-content: space-between;
@@ -93,17 +95,17 @@
                         margin-top: 15px;
                         overflow-y: auto;
                         max-height: fit-content;
-                        overflow-wrap: break-word; 
+                        overflow-wrap: break-word;
 
                         &::-webkit-scrollbar {
                             width: 5px;
                         }
-                    
+
                         &::-webkit-scrollbar-thumb {
                             background-color: #484848;
                             border-radius: 5px;
                         }
-                    
+
                         &::-webkit-scrollbar-track {
                             border-radius: 5px;
                         }
@@ -113,8 +115,8 @@
         }
     }
     .overlay {
-        transition: .3s all ease-in-out;
-        background: linear-gradient(180deg, rgba(23, 23, 23, 0.00) 0%, #171717 94.71%);
+        transition: 0.3s all ease-in-out;
+        background: linear-gradient(180deg, rgba(23, 23, 23, 0) 0%, #171717 94.71%);
         z-index: 2000;
         top: 0;
         position: absolute;
@@ -131,25 +133,10 @@
     }
 
     img {
-        z-index: -1;
+        z-index: 0;
         position: relative;
         border-radius: $border-radius;
     }
-}
-
-.movie-card-enter {
-    opacity: 0;
-  }
-.movie-card-enter-active {
-    opacity: 1;
-    transition: opacity 500ms ease-in;
-}
-.movie-card-exit {
-    opacity: 1;
-}
-.movie-card-exit-active {
-    opacity: 0;
-    transition: opacity 500ms ease-in;
 }
 
 @media (max-width: 1400px) {
@@ -173,29 +160,29 @@
             }
         }
     }
-    
 }
 
 @include tablet {
     .movies {
         .movie-card {
             overflow: unset;
-            position: unset;
+            position: relative;
             &-modal-content {
                 .char-desc {
                     text-align: right;
                 }
             }
             img {
-                position: unset;
+                position: absolute;
+                // z-index: -1;
             }
             .overlay {
                 h3 {
-                    position: unset;
+                    position: absolute;
                 }
                 transform: translate(0);
-                background: transparent;
-                position: unset;
+                // background: transparent;
+                position: absolute;
             }
         }
     }
