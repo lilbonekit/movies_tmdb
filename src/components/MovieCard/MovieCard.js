@@ -25,11 +25,16 @@ const MovieCard = (props) => {
     }
 
     let imgPath = apiConfig.originalImage(poster_path)
+    const styles = imgPath.includes('originalnull') ? {background: 'transparent'} : {}
         imgPath = imgPath.includes('originalnull') ? NoImg : imgPath
+
 
     return(
         <>
-            <li className='movie-card' key={id} onClick={() => !isMobile ? setModalActive(id) : navigate(`/movie/${id}`)}>
+            <li className='movie-card' 
+                key={id}
+                style={styles} 
+                onClick={() => !isMobile ? setModalActive(id) : navigate(`/movie/${id}`)}>
                 <img src={imgPath} alt={title} />
                 <div className="overlay">
                     <h3>{title}</h3>

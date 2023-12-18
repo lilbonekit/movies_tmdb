@@ -36,7 +36,7 @@ const SingleMoviePage = () => {
 
     const onSingleMoviePageLoaded = async (id) => {
         try {
-            // Два запроса параллельно
+            // Три запроса параллельно
             const [movieResponse, videoResponse, creditsResponse] = await Promise.all([getMovie(id), getVideo(id), getCredits(id)])
       
             // Обрабатываем результат
