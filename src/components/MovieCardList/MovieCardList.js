@@ -70,6 +70,7 @@ export const List = ({isLoading, error, movies, closeOnChoose}) => {
                                 <ErrorMessage msg={error}/>
                             ) : (
                                 <View movies={movies}
+                                        isLoading={isLoading}
                                       closeOnChoose={closeOnChoose}/>
                             )}
                     </ul>
@@ -82,8 +83,9 @@ export const List = ({isLoading, error, movies, closeOnChoose}) => {
 const View = ({movies, closeOnChoose}) => {
     const { currentFilter } = useMoviesContext()
     return movies && movies.length > 0 ? 
-        movies.map(movie => <MovieCard key={movie.id} {...movie} 
-        closeOnChoose={closeOnChoose}/>) : 
+        movies.map(movie => 
+                <MovieCard key={movie.id} {...movie} 
+                closeOnChoose={closeOnChoose}/>) :
         <ErrorMessage smile='🫥'
                       msg={`You don't have any movies in your ${currentFilter} list...`}/>
 }

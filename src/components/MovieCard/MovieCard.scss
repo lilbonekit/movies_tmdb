@@ -137,6 +137,21 @@
     }
 }
 
+.movie-card-enter {
+    opacity: 0;
+  }
+.movie-card-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+.movie-card-exit {
+    opacity: 1;
+}
+.movie-card-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
+}
+
 @media (max-width: 1400px) {
     .movies-list {
         .modal__content {

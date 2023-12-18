@@ -6,6 +6,8 @@ import { List } from '../../MovieCardList/MovieCardList'
 import useMoviesContext from '../../../context/useMoviesContext'
 import useTmdbServices from '../../../services/tmdbServices'
 
+import { Helmet } from 'react-helmet'
+
 import { useEffect, useState } from 'react'
 
 const LibraryMoviesPage = () => {
@@ -26,27 +28,6 @@ const LibraryMoviesPage = () => {
         queueList,
         watchedList,
     } = useMoviesContext()
-
-    // Мой старый вариант (тоже работает)
-    // const getList = (type) => {
-    //     setCurrentList([])
-    //     switch (type) {
-    //         case 'queue':
-    //             queueList.forEach(itemId => {
-    //                 getMovie(itemId)
-    //                     .then(res => setCurrentList(prevList => [...prevList, res]))
-    //             })
-    //             break
-    //         case 'watched':
-    //             watchedList.forEach(itemId => {
-    //                 getMovie(itemId)
-    //                     .then(res => setCurrentList(prevList => [...prevList, res]))
-    //             })
-    //             break
-    //         default:
-    //             setCurrentList([])
-    //     }
-    // }
 
     const getList = async (type) => {
         setCurrentList([])
@@ -75,6 +56,9 @@ const LibraryMoviesPage = () => {
 
     return(
         <div className='library-page'>
+            <Helmet>
+                <title>TheMovideDB | My library</title>
+            </Helmet>
             <LibraryHeader/>
             <LibraryList isLoading={isLoading}
                          error={error}

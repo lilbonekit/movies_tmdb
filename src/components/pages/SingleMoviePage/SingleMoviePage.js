@@ -4,6 +4,8 @@ import { useParams } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import useTmdbServices from '../../../services/tmdbServices'
 
+import { Helmet } from 'react-helmet'
+
 import LibraryButtons from '../../LibraryButtons/LibraryButtons'
 import Spinner from '../../Spinner/Spinner'
 import ErrorMessage from '../../ErrorMessage/ErrorMessage'
@@ -11,7 +13,6 @@ import ErrorMessage from '../../ErrorMessage/ErrorMessage'
 import noImgPath from '../../../assets/no_img.png'
 
 import apiConfig from '../../../api/apiConfig'
-import { act } from 'react-dom/test-utils'
 // const apiConfig = {
 //     baseUrl: 'https://api.themoviedb.org/3/',
 //     apiKey: 'c9a865bc8fe806d42a087d3107ff7ca6',
@@ -54,6 +55,9 @@ const SingleMoviePage = () => {
 
     return(
         <div className='single-movie-page' style={error ? {position: 'unset'} : {}}>
+            <Helmet>
+                <title>TheMovideDB | {movie ? movie.title : ''} Movie page</title>
+            </Helmet>
             {isLoading ? 
                 (
                     <Spinner style={{ margin: 'auto 0' }} />
@@ -105,11 +109,20 @@ const Content = ({movie, credits, trailers}) => {
                             genres.map(genre => <span className='genre' key={genre.id}>{genre.name}</span>)
                         }
                     </div>
-                    <p>{overview}</p>
+                    <p>
+                        {
+                            overview ? overview : 'No overview'
+                        }
+                    </p>
                     <div className="credits">
                         <h3>Casts</h3>
                         {
                            <div className="credits__wrapper">
+                            {
+                                credits.length === 0 ?
+                                    <ErrorMessage msg={'No info...'} smile='' styles={{position: 'unset', transform: 'unset', textAlign: 'left', fontSize: '0.6rem'}}/> :
+                                    null
+                             }
                              {
                                 credits.map(actor => 
                                     {
