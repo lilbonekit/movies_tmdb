@@ -150,11 +150,15 @@ const Content = ({movie, credits, trailers}) => {
                             null
                     }
                     { 
-                        trailers.map(trailer => 
+                        trailers.map((trailer, index) => 
+                        index < 5 ? 
                         <div className='trailer' key={trailer.id}>
                             <h3>{trailer.name}</h3>
                             <iframe title={trailer.name} src={`https://www.youtube.com/embed/${trailer.key}`}></iframe>
-                        </div>)}
+                        </div> :
+                        null)
+                        
+                    }
                     </>
                 }
             </section>
