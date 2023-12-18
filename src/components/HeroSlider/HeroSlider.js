@@ -42,6 +42,7 @@ const HeroSlider = () => {
             const SliderItems = moviesArray.slice(1, 5)
             setMovieItems(SliderItems)
         })
+        //eslint-disable-next-line
     }, [])
 
     return(
