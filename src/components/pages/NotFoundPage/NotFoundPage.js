@@ -10,7 +10,7 @@ const NotFoundPage = () => {
                 <title>TheMovideDB | 404 not found</title>
             </Helmet>
             <ErrorMessage msg='404 page not found!' smile='👻'/>
-            <Link className='button main' style={{position: 'absolute', bottom: '30%', left: '50%', transform: 'translateX(-50%)'}} to='/'>Go home</Link>
+            <Link className='button main' style={{position: 'absolute', bottom: '25%', left: '50%', transform: 'translateX(-50%)'}} to='/'>Go home</Link>
         </section>
     )
 }
