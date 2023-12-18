@@ -47,6 +47,7 @@ const SingleMoviePage = () => {
           } catch (error) {
             console.error("Error!", error)
           }
+          window.scrollTo(0,0);
     }
 
     useEffect(() => {
